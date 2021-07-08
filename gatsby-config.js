@@ -11,12 +11,14 @@ module.exports = {
       resolve: "@prismicio/gatsby-source-prismic-graphql",
       options: {
         repositoryName: "yonghun-landing",
-        pages: [{
-          type: 'Page',
-          match: '/:uid',
-          path: '/',
-          component: require.resolve('./src/templates/page.js')
-        }]
+        pages: [
+          {
+            type: "Page",
+            match: "/:uid",
+            path: "/",
+            component: require.resolve("./src/templates/page.js"),
+          }
+        ],
       },
     },
     `gatsby-plugin-react-helmet`,
