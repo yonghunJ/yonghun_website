@@ -1,29 +1,60 @@
 import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Seo from "../components/seo"
+import SliceZone from "../components/sliceZone"
 
-const IndexPage = () => (
+export const query = graphql`
+  {
+    prismic {
+      allHomepages {
+        edges {
+          node {
+            body {
+              ... on PRISMIC_HomepageBodyHero {
+                type
+                primary {
+                  hero_content
+                  hero_title
+                  background_image
+                }
+              }
+              ... on PRISMIC_HomepageBodyCall_to_action_grid {
+              type
+              primary {
+                section_title
+              }
+              fields {
+                button_destination {
+                  ... on PRISMIC_Page {
+                    page_title
+                    content
+                    _meta {
+                      uid
+                    }
+                  }
+                }
+                button_label
+                content
+                feature_image
+                call_to_action_title
+              }
+            }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+
+const IndexPage = (props) => {
+  console.log(props)
+  return(
   <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["AUTO", "WEBP", "AVIF"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    </p>
+    <SliceZone body={props.data.prismic.allHomepages.edges[0].node.body}/>
   </Layout>
-)
+  )
+  }
 
 export default IndexPage
