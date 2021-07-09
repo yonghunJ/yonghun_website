@@ -6,6 +6,14 @@ module.exports = {
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-intercom-spa',
+      options: {
+        app_id: 'kwau6fi2',
+        include_in_development: true,
+        delay_timeout: 0
+      },
+    },
     'gatsby-plugin-styled-components',
     {
       resolve: "@prismicio/gatsby-source-prismic-graphql",
